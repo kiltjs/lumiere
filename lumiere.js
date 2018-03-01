@@ -20,6 +20,50 @@ var animate = (function (rAF, performance, _now) {
     };
   }
 
+  function _noop (value) { return value; }
+
+  function _runListeners (listeners) {
+    listeners.forEach(function (listener) { listener(); });
+  }
+
+  function animate ( duration, progressFn, atEnd, timingFunction ) {
+    var start, frame_id, listeners = [],
+        _atEnd = function () {
+          if( atEnd ) atEnd();
+          if( listeners.length ) _runListeners(listeners);
+        };
+
+    timingFunction = timingFunction || _noop;
+
+    progressFn(duration === 0 ? 1 : 0);
+
+    if( duration > 0 ) {
+      start = performance.now();
+
+      frame_id = _requestAnimationFrame(function step() {
+        var elapsed = performance.now() - start;
+
+        if( elapsed >= duration ) {
+          progressFn(1);
+          _atEnd();
+        } else {
+          progressFn( timingFunction(elapsed/duration) );
+          frame_id = _requestAnimationFrame(step);
+        }
+      });
+    } else _atEnd();
+
+    return {
+      then: function (listener) {
+        listeners.push(listener);
+      },
+      cancel: function (reject) {
+        _cancelAnimationFrame(frame_id);
+      },
+    };
+  }
+
+  return animate;
 })(
   (function (rAF) {
     if( rAF ) return rAF;

@@ -21,13 +21,16 @@ export var animate = (function (rAF, performance, _now) {
     listeners.forEach(function (listener) { listener(); });
   }
 
-  function animate( progressFn, duration, atEnd, timingFunction ) {
-    var start, frame_id, listeners = [];
+  function animate ( duration, progressFn, atEnd, timingFunction ) {
+    var start, frame_id, listeners = [],
+        _atEnd = function () {
+          if( atEnd ) atEnd();
+          if( listeners.length ) _runListeners(listeners);
+        };
 
     timingFunction = timingFunction || _noop;
 
     progressFn(duration === 0 ? 1 : 0);
-
 
     if( duration > 0 ) {
       start = performance.now();
@@ -37,14 +40,13 @@ export var animate = (function (rAF, performance, _now) {
 
         if( elapsed >= duration ) {
           progressFn(1);
-          if( atEnd ) atEnd();
-          if( listeners.length ) _runListeners(listeners);
+          _atEnd();
         } else {
           progressFn( timingFunction(elapsed/duration) );
           frame_id = _requestAnimationFrame(step);
         }
       });
-    } else setTimeout(deferred.resolve, 0);
+    } else _atEnd();
 
     return {
       then: function (listener) {
@@ -56,6 +58,7 @@ export var animate = (function (rAF, performance, _now) {
     };
   }
 
+  return animate;
 })(
   (function (rAF) {
     if( rAF ) return rAF;
