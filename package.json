@@ -1,0 +1,16 @@
+{
+  "name": "lumiere",
+  "version": "0.0.1",
+  "description": "Animation wrapper",
+  "main": "lumiere.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "keywords": [
+    "animation",
+    "frames",
+    "progress"
+  ],
+  "author": "Jesús Germade <jesus@germade.es>",
+  "license": "MIT"
+}
