@@ -1,6 +1,6 @@
 {
   "name": "lumiere",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Animation wrapper",
   "main": "lumiere.js",
   "scripts": {
