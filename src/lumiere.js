@@ -1,10 +1,5 @@
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-	typeof define === 'function' && define.amd ? define(['exports'], factory) :
-	(factory((global.lumiere = {})));
-}(this, (function (exports) { 'use strict';
 
-var animate = (function (rAF, performance, _now) {
+export var animate = (function (rAF, performance, _now) {
   var _requestAnimationFrame = rAF.requestFrame,
       _cancelAnimationFrame = rAF.cancel;
 
@@ -17,6 +12,47 @@ var animate = (function (rAF, performance, _now) {
 
     performance.now = function now(){
       return _now() - now_offset;
+    };
+  }
+
+  function _noop (value) { return value; }
+
+  function _runListeners (listeners) {
+    listeners.forEach(function (listener) { listener(); });
+  }
+
+  function animate( progressFn, duration, atEnd, timingFunction ) {
+    var start, frame_id, listeners = [];
+
+    timingFunction = timingFunction || _noop;
+
+    progressFn(duration === 0 ? 1 : 0);
+
+
+    if( duration > 0 ) {
+      start = performance.now();
+
+      frame_id = _requestAnimationFrame(function step() {
+        var elapsed = performance.now() - start;
+
+        if( elapsed >= duration ) {
+          progressFn(1);
+          if( atEnd ) atEnd();
+          if( listeners.length ) _runListeners(listeners);
+        } else {
+          progressFn( timingFunction(elapsed/duration) );
+          frame_id = _requestAnimationFrame(step);
+        }
+      });
+    } else setTimeout(deferred.resolve, 0);
+
+    return {
+      then: function (listener) {
+        listeners.push(listener);
+      },
+      cancel: function (reject) {
+        _cancelAnimationFrame(frame_id);
+      },
     };
   }
 
@@ -56,7 +92,7 @@ var animate = (function (rAF, performance, _now) {
   }
 );
 
-function detectDuration (el) {
+export function detectDuration (el) {
   var time = 0;
   var duration = window.getComputedStyle(el).animationDuration;
   if( duration ) {
@@ -81,10 +117,3 @@ function detectDuration (el) {
   // console.log('animationTime', el, time);
   return time;
 }
-
-exports.animate = animate;
-exports.detectDuration = detectDuration;
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-})));
