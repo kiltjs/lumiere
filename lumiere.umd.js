@@ -1,4 +1,8 @@
-'use strict';
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+	typeof define === 'function' && define.amd ? define(factory) :
+	(global.lumiere = factory());
+}(this, (function () { 'use strict';
 
 var animate = (function (rAF, performance, _now) {
   var _requestAnimationFrame = rAF.requestFrame,
@@ -96,4 +100,6 @@ var animate = (function (rAF, performance, _now) {
   }
 );
 
-module.exports = animate;
+return animate;
+
+})));

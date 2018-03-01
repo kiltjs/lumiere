@@ -5,8 +5,8 @@
   "main": "lumiere.js",
   "scripts": {
     "test": "make test",
-    "build": "rollup src/lumiere.js --format umd --output lumiere.js -n lumiere; uglifyjs lumiere.js -o lumiere.min.js -c -m",
-    "build-duration": "rollup src/detect-duration.js --format umd --output detect-duration.js -n lumiere; uglifyjs detect-duration.js -o detect-duration.min.js -c -m"
+    "build": "rollup src/lumiere.js --format cjs --output lumiere.js; rollup src/lumiere.js --format umd --output lumiere.umd.js -n lumiere; uglifyjs lumiere.umd.js -o lumiere.min.js -c -m",
+    "build-duration": "rollup src/detect-duration.js --format cjs --output detect-duration.js; rollup src/detect-duration.js --format umd --output detect-duration.umd.js -n detectDuration; uglifyjs detect-duration.umd.js -o detect-duration.min.js -c -m"
   },
   "keywords": [
     "animation",

@@ -1,4 +1,8 @@
-'use strict';
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+	typeof define === 'function' && define.amd ? define(factory) :
+	(global.detectDuration = factory());
+}(this, (function () { 'use strict';
 
 function detectDuration (el) {
   var time = 0;
@@ -26,4 +30,6 @@ function detectDuration (el) {
   return time;
 }
 
-module.exports = detectDuration;
+return detectDuration;
+
+})));
