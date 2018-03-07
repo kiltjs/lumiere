@@ -1,14 +1,10 @@
 {
   "name": "lumiere",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "description": "Animation wrapper",
   "main": "lumiere.js",
   "scripts": {
-    "test": "make test",
-    "prebuild": "mkdir -p dist",
-    "build": "rollup src/lumiere.js --format cjs --output dist/lumiere.js; rollup src/lumiere.js --format umd --output dist/lumiere.umd.js -n lumiere; uglifyjs dist/lumiere.umd.js -o dist/lumiere.min.js -c -m",
-    "build-duration": "rollup src/detect-duration.js --format cjs --output dist/detect-duration.js; rollup src/detect-duration.js --format umd --output dist/detect-duration.umd.js -n detectDuration; uglifyjs dist/detect-duration.umd.js -o dist/detect-duration.min.js -c -m",
-    "postbuild": "npm run build-duration; cp package.json dist/package.json; cp README.md dist/README.md"
+    "test": "make test"
   },
   "keywords": [
     "animation",
@@ -26,7 +22,9 @@
   },
   "homepage": "https://github.com/kiltjs/lumiere#readme",
   "devDependencies": {
+    "eslint": "^4.18.2",
     "rollup": "^0.56.3",
     "uglify-js": "^3.3.12"
-  }
+  },
+  "dependencies": {}
 }

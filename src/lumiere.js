@@ -20,7 +20,7 @@ var animate = (function (rAF, performance, _now) {
   }
 
   function animate ( duration, progressFn, timingFunction ) {
-    var start, frame_id, listeners = [];
+    var start, frame_id, listeners = [], cancel_listeners = [];
 
     timingFunction = timingFunction || function (value) { return value; };
 
@@ -42,12 +42,15 @@ var animate = (function (rAF, performance, _now) {
     } else _runListeners(listeners, 1);
 
     return {
-      then: function (listener) {
-        listeners.push( listener );
+      then: function (onFulfill, onCancel) {
+        if( typeof onFulfill === 'function' ) listeners.push( onFulfill );
+        if( typeof onCancel === 'function' ) cancel_listeners.push( onCancel );
         return this;
       },
-      cancel: function (reject) {
-        _cancelAnimationFrame(frame_id);
+      cancel: function () {
+        if( frame_id ) _cancelAnimationFrame(frame_id);
+        frame_id = null;
+        _runListeners(cancel_listeners, duration);
       },
     };
   }

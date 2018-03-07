@@ -16,24 +16,17 @@ var animate = (function (rAF, performance, _now) {
     };
   }
 
-  function _noop (value) { return value; }
-
-  function _runListeners (listeners) {
-    listeners.forEach(function (listener) { listener(); });
+  function _runListeners (listeners, duration) {
+    for( var i = 0, n = listeners.length; i < n ; i++ ) listeners[i](duration);
   }
 
-  function animate ( duration, progressFn, atEnd, timingFunction ) {
-    var start, frame_id, listeners = [],
-        _atEnd = function () {
-          if( atEnd ) atEnd();
-          if( listeners.length ) _runListeners(listeners);
-        };
+  function animate ( duration, progressFn, timingFunction ) {
+    var start, frame_id, listeners = [], cancel_listeners = [];
 
-    timingFunction = timingFunction || _noop;
-
-    progressFn(duration === 0 ? 1 : 0);
+    timingFunction = timingFunction || function (value) { return value; };
 
     if( duration > 0 ) {
+      progressFn(0);
       start = performance.now();
 
       frame_id = _requestAnimationFrame(function step() {
@@ -41,20 +34,24 @@ var animate = (function (rAF, performance, _now) {
 
         if( elapsed >= duration ) {
           progressFn(1);
-          _atEnd();
+          _runListeners(listeners, duration);
         } else {
           progressFn( timingFunction(elapsed/duration) );
           frame_id = _requestAnimationFrame(step);
         }
       });
-    } else _atEnd();
+    } else _runListeners(listeners, 1);
 
     return {
-      then: function (listener) {
-        listeners.push(listener);
+      then: function (onFulfill, onCancel) {
+        if( typeof onFulfill === 'function' ) listeners.push( onFulfill );
+        if( typeof onCancel === 'function' ) cancel_listeners.push( onCancel );
+        return this;
       },
-      cancel: function (reject) {
-        _cancelAnimationFrame(frame_id);
+      cancel: function () {
+        if( frame_id ) _cancelAnimationFrame(frame_id);
+        frame_id = null;
+        _runListeners(cancel_listeners, duration);
       },
     };
   }
