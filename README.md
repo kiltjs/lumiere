@@ -21,6 +21,10 @@ yarn add lumiere
 
 ### Usage
 
+``` html
+<script src="https://cdn.rawgit.com/kiltjs/lumiere/6401f7dc/dist/lumiere.umd.js"></script>
+```
+
 ``` js
 import lumiere from 'lumiere';
 
