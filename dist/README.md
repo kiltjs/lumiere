@@ -4,6 +4,7 @@
 Animation wrapper based on rAF (requestAnimationFrame)
 
 [![npm](https://img.shields.io/npm/v/lumiere.svg)](https://www.npmjs.com/package/lumiere)
+[![Build Status](https://travis-ci.org/kiltjs/lumiere.svg?branch=master)](https://travis-ci.org/kiltjs/lumiere)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 > npm
@@ -19,6 +20,10 @@ yarn add lumiere
 ```
 
 ### Usage
+
+``` html
+<script src="https://cdn.rawgit.com/kiltjs/lumiere/6401f7dc/dist/lumiere.umd.js"></script>
+```
 
 ``` js
 import lumiere from 'lumiere';
@@ -41,6 +46,6 @@ lumiere(400, function (progress) {
 }).then(function () {
 
   // animation finished
-  
+
 });
 ```
