@@ -17,3 +17,30 @@ npm i lumiere --save
 ``` sh
 yarn add lumiere
 ```
+
+### Usage
+
+``` js
+import lumiere from 'lumiere';
+
+var initial_scroll = document.scrollingElement.scrollTop,
+    scroll_length = 100; // scroll down 100px
+
+lumiere(400, function (progress) {
+
+  document.scrollingElement.scrollTop = initial_scroll + scroll_length*progress;
+
+}, function (progress) {
+
+  // example of easeInQuad
+  return progress*progress;
+
+  // check out https://gist.github.com/gre/1650294 for more easing functions
+  // also check out https://github.com/gre/bezier-easing
+
+}).then(function () {
+
+  // animation finished
+  
+});
+```
