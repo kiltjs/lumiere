@@ -33,9 +33,9 @@ npm.publish: build
 	- cd dist && npm publish --access public
 	- node -e "var fs = require('fs'); var pkg = require('./lib/package.json'); pkg.name = 'lumiere'; fs.writeFile('lib/package.json', JSON.stringify(pkg, null, '  '), 'utf8', function (err) { if( err ) console.log('Error: ' + err); });"
 	- cd dist && npm publish
-	rm package.json
-	rm README.md
-	rm LICENSE
+	rm dist/package.json
+	rm dist/README.md
+	rm dist/LICENSE
 
 github.release: export PKG_VERSION=$(shell node -e "console.log('v'+require('./package.json').version);")
 github.release: export RELEASE_URL=$(shell curl -s -X POST -H "Content-Type: application/json" -H "Authorization: Bearer ${GITHUB_TOKEN}" \
