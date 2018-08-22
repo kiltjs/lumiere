@@ -1,5 +1,5 @@
 
-# lumiere
+# @kilt/lumiere
 
 Animation wrapper based on rAF (requestAnimationFrame)
 
@@ -10,7 +10,7 @@ Animation wrapper based on rAF (requestAnimationFrame)
 > npm
 
 ``` sh
-npm i lumiere --save
+npm i @kilt/lumiere --save
 ```
 
 > yarn
@@ -22,7 +22,7 @@ yarn add lumiere
 ### Usage
 
 ``` html
-<script src="https://cdn.rawgit.com/kiltjs/lumiere/6401f7dc/dist/lumiere.umd.js"></script>
+<script src="https://cdn.rawgit.com/kiltjs/lumiere/2449a6f3/dist/lumiere.min.js"></script>
 ```
 
 ``` js

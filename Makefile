@@ -12,16 +12,17 @@ install:
 build: install test
 	mkdir -p dist
 
-	$(shell npm bin)/rollup src/lumiere.js --format cjs --output dist/lumiere.js
-	$(shell npm bin)/rollup src/lumiere.js --format umd --output dist/lumiere.umd.js -n lumiere
+	$(shell npm bin)/rollup src/lumiere.js --output.format cjs --output.file dist/lumiere.js
+	$(shell npm bin)/rollup src/lumiere.js --output.format umd --output.file dist/lumiere.umd.js -n lumiere
 	$(shell npm bin)/uglifyjs dist/lumiere.umd.js -o dist/lumiere.min.js -c -m
 
-	$(shell npm bin)/rollup src/detect-duration.js --format cjs --output dist/detect-duration.js
-	$(shell npm bin)/rollup src/detect-duration.js --format umd --output dist/detect-duration.umd.js -n detectDuration
+	$(shell npm bin)/rollup src/detect-duration.js --output.format cjs --output.file dist/detect-duration.js
+	$(shell npm bin)/rollup src/detect-duration.js --output.format umd --output.file dist/detect-duration.umd.js -n detectDuration
 	$(shell npm bin)/uglifyjs dist/detect-duration.umd.js -o dist/detect-duration.min.js -c -m
 
-npm.version:
+npm.version: build
 	git pull --tags
+	git add dist
 	npm version patch
 	git push origin $(git_branch) && git push --tags
 
@@ -31,7 +32,7 @@ npm.publish: build
 	cp LICENSE dist
 	- cd dist && npm publish --access public
 	- node -e "var fs = require('fs'); var pkg = require('./lib/package.json'); pkg.name = 'lumiere'; fs.writeFile('lib/package.json', JSON.stringify(pkg, null, '  '), 'utf8', function (err) { if( err ) console.log('Error: ' + err); });"
-	- cd dist; npm publish
+	- cd dist && npm publish
 	rm package.json
 	rm README.md
 	rm LICENSE
