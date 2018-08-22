@@ -3,7 +3,7 @@
 
 Animation wrapper based on rAF (requestAnimationFrame)
 
-[![npm](https://img.shields.io/npm/v/lumiere.svg)](https://www.npmjs.com/package/lumiere)
+[![npm](https://img.shields.io/npm/v/@kilt/lumiere.svg)](https://www.npmjs.com/package/@kilt/lumiere)
 [![Build Status](https://travis-ci.org/kiltjs/lumiere.svg?branch=master)](https://travis-ci.org/kiltjs/lumiere)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
@@ -22,7 +22,7 @@ yarn add lumiere
 ### Usage
 
 ``` html
-<script src="https://cdn.rawgit.com/kiltjs/lumiere/2449a6f3/dist/lumiere.min.js"></script>
+<script src="https://cdn.rawgit.com/kiltjs/lumiere/89944193/dist/lumiere.min.js"></script>
 ```
 
 ``` js
