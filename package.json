@@ -1,6 +1,6 @@
 {
   "name": "@kilt/lumiere",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Animation wrapper",
   "main": "lumiere.js",
   "scripts": {
