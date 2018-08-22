@@ -31,7 +31,7 @@ npm.publish: build
 	cp README.md dist
 	cp LICENSE dist
 	- cd dist && npm publish --access public
-	- node -e "var fs = require('fs'); var pkg = require('./lib/package.json'); pkg.name = 'lumiere'; fs.writeFile('lib/package.json', JSON.stringify(pkg, null, '  '), 'utf8', function (err) { if( err ) console.log('Error: ' + err); });"
+	- node -e "var fs = require('fs'); var pkg = require('./dist/package.json'); pkg.name = 'lumiere'; fs.writeFile('dist/package.json', JSON.stringify(pkg, null, '  '), 'utf8', function (err) { if( err ) console.log('Error: ' + err); });"
 	- cd dist && npm publish
 	rm dist/package.json
 	rm dist/README.md
