@@ -1,5 +1,5 @@
 
-# lumiere
+# @kilt/lumiere
 
 Animation wrapper based on rAF (requestAnimationFrame)
 
@@ -10,7 +10,7 @@ Animation wrapper based on rAF (requestAnimationFrame)
 > npm
 
 ``` sh
-npm i lumiere --save
+npm i @kilt/lumiere --save
 ```
 
 > yarn

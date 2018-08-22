@@ -1,5 +1,5 @@
 {
-  "name": "lumiere",
+  "name": "@kilt/lumiere",
   "version": "1.0.0",
   "description": "Animation wrapper",
   "main": "lumiere.js",
@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/kiltjs/lumiere#readme",
   "devDependencies": {
-    "eslint": "^4.18.2",
+    "eslint": "^4.19.1",
     "rollup": "^0.56.3",
     "uglify-js": "^3.3.12"
   },
